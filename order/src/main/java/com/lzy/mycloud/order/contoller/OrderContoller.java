@@ -20,7 +20,7 @@ public class OrderContoller {
     private ServiceA serviceA;
 
     @RequestMapping("/addOrder")
-    public String addOrder(){
+    public String addOrder1(){
         try {
             System.out.println(Thread.currentThread().getId()+"******第一次打印线程");
             Long star=System.currentTimeMillis();
@@ -33,7 +33,7 @@ public class OrderContoller {
         return "null";
     }
     @RequestMapping("/test")
-    public String test(){
+    public String test1(){
         try {
             serviceA.serviceA();
             serviceB.serviceB();
