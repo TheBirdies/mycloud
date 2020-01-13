@@ -1,0 +1,52 @@
+server:
+  port: 8001
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 500  # 最小线程数
+    accept-count: 1000  # 队列长度
+    max-connections: 10000  # 最大链接数
+    max-http-post-size: 1024
+spring:
+  datasource:
+    password: root
+    username: root
+    url: jdbc:mysql://127.0.0.1:3306/test?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF8&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 200
+      min-idle: 200
+      max-active: 200
+      max-wait: 60000
+      time-between-eviction-runsMillis: 60000
+      min-evictable-idle-timeMillis: 300000
+      validation-query: select 'x' FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-open-prepared-statements: 20
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: stat, wall, log4j
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      use-global-data-source-stat: true
+  application:
+    name: ORDER
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+#tx-lcn:
+#  client:
+#    manager-address: 127:0:0:1:8070
+task-executor:
+  core_pool_size: 200
+  max_pool_size: 600
+  queue-capacity: 9999
+  name-prefix: orders-
+  keep-alive-seconds: 60
+  await-termination-seconds: 100
